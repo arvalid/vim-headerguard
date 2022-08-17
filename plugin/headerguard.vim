@@ -1,4 +1,4 @@
-" Vim plugin for adding C/C++ header guards.
+" Vim plugin for adding Verilog/SystemVerilog header guards.
 
 if exists("loaded_headerguard")
     finish
@@ -6,7 +6,7 @@ endif
 let loaded_headerguard = 1
 
 if !exists('g:headerguard_use_cpp_comments')
-    let g:headerguard_use_cpp_comments = 0
+    let g:headerguard_use_cpp_comments = 1
 endif
 
 " Save 'cpoptions' and set Vim default to enable line continuations.
@@ -30,22 +30,22 @@ function! s:Func(funcSuffix)
 endfunction
 
 function! s:HeaderguardName()
-    return toupper(expand('%:t:gs/[^0-9a-zA-Z_]/_/g'))
+    return "GUARD_" . toupper(expand('%:t:gs/[^0-9a-zA-Z_]/_/g'))
 endfunction
 
 function! s:HeaderguardLine1()
-    return "#ifndef " . s:Func('Name')()
+    return "`ifndef " . s:Func('Name')()
 endfunction
 
 function! s:HeaderguardLine2()
-    return "#define " . s:Func('Name')()
+    return "`define " . s:Func('Name')()
 endfunction
 
 function! s:HeaderguardLine3()
     if g:headerguard_use_cpp_comments
-        return "#endif // " . s:Func('Name')()
+        return "`endif // " . s:Func('Name')()
     else
-        return "#endif /* " . s:Func('Name')() . " */"
+        return "`endif /* " . s:Func('Name')() . " */"
     endif
 endfunction
 
