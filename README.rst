@@ -1,3 +1,6 @@
+// Update Verilog/SystemVerilog as default
+
+
 ******************************************************
 Headerguard -  Add header guards to C/C++ header files
 ******************************************************
